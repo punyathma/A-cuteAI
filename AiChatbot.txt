@@ -1,0 +1,54 @@
+Back-End side-
+1.custom data(pdf file) - the gale encyclopedia of med (has diseases , meds , symptoms etc..,.)
+2 and 3. data extraction into collection of data text chunks
+why chunks?
+ - every model has a specific limit in number of tokens (token size input)
+ - llama2 - 4096 token limit
+ - dataset will be too big of a token size for the model , therefore converting the huge data into text chunks(recursiveCharacterTextSplitter(chunk size , overlap to be defined))
+ - chunk size we'll pre define (100/200/300..) and based on this the data will be divided into chunks
+ (limitation - chunk overlap (we predefine - ex.20/30)  , some extra tokens from prev chunks for say 20 tokens would be considered for the new current chunk)
+4. Embeddings
+   - vector
+   - text chunk converted to vectors 
+we are creating semantic index (one of the concept from vector database , other is knowledge base)
+-semantic index database creates clusters , based on distance between vectors.
+- using vector db , create a semantic index , **combine all vector/embeddings to form this index**
+5. Building Knowledge base
+- pinecone vector store(see how it works later)
+- also can use cromadb.
+
+
+User side -
+- user will ask questions
+- questions to be converted to query embedding 
+- this query emb. will be sent to knowledge base , as knowledgebase holds all the vector data
+- now this knowledge base will give us a ranked result (based on closest vector based on query we asked)
+- now , we comes to play llama2 (large language model)
+- llama2 application here -> we can filter out our exact needed answer from the ranked result and llm will give us the response , llama2 try's understanding both the query and also the answer from ranked resuly and gives us the response)
+- this is the actual response we'll send to the user.
+
+
+Technologies used -
+- prog. lang - python
+- genAI f/w - langchain
+ (lamaindex is an alternate option).
+- For frontend/webapp implementation - Flask
+- large language model - meta llama2
+- vector db - pinecone vector store.(comes under langchain)
+
+
+most imp Libraries -
+- ctransformer==0.2.5 (to load the quantized model(langchain) on cpu) (from langchain)
+- Free embedding model - sentence-transformers==2.2.2 (from huggingface - all-MiniLM-L6-v2 , comes under langchain)
+- pinecone-client
+- langchain=0.0.225
+- flask
+- pypdf  
+(install all these on terminals by creating a txt file (req.txt))
+
+
+Implementation - 
+
+
+  
+
